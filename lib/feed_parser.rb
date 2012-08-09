@@ -3,15 +3,16 @@ require 'nokogiri'
 
 class FeedParser
 
-  VERSION = "0.3.1"
+  VERSION = "0.3.4"
 
   USER_AGENT = "Ruby / FeedParser gem"
 
   class FeedParser::UnknownFeedType < Exception ; end
+  class FeedParser::InvalidURI < Exception ; end
 
   def initialize(opts)
     @url = opts[:url]
-    @http_options = opts[:http] || {}
+    @http_options = {"User-Agent" => FeedParser::USER_AGENT}.merge(opts[:http] || {})
     @@sanitizer = (opts[:sanitizer] || SelfSanitizer.new)
     @@fields_to_sanitize = (opts[:fields_to_sanitize] || [:content])
     self
@@ -26,7 +27,36 @@ class FeedParser
   end
 
   def parse
-    @feed ||= Feed.new(@url, @http_options)
+    feed_xml = open_or_follow_redirect(@url)
+    @feed ||= Feed.new(feed_xml)
+    feed_xml.close! if feed_xml.class.to_s == 'Tempfile'
+    @feed
+  end
+
+  private
+
+  def open_or_follow_redirect(feed_url)
+    uri = URI.parse(feed_url)
+
+    if uri.userinfo
+      @http_options[:http_basic_authentication] = [uri.user, uri.password].compact
+      uri.userinfo = uri.user = uri.password = nil
+    end
+
+    @http_options[:redirect] = true if RUBY_VERSION >= '1.9'
+
+    if ['http', 'https'].include?(uri.scheme)
+      open(uri.to_s, @http_options)
+    else
+      raise FeedParser::InvalidURI.new("Only URIs with http or https protocol are supported")
+    end
+  rescue RuntimeError => ex
+    redirect_url = ex.to_s.split(" ").last
+    if URI.parse(feed_url).scheme == "http" && URI.parse(redirect_url).scheme == "https"
+      open_or_follow_redirect(redirect_url)
+    else
+      raise ex
+    end
   end
 end
 
