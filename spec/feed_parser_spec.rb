@@ -70,7 +70,7 @@ describe FeedParser do
       lambda {
         fp = FeedParser.new({:url => "http://example.com/blog/feed/invalid.xml"}.merge(http_connection_options))
         fp.parse
-      }.should raise_error(FeedParser::UnknownFeedType, "Feed is not an RSS feed or an ATOM feed")
+      }.should raise_error(FeedParser::UnknownFeedType, "Unknown feed type")
     end
 
     it "should not allow feeds without http(s) protocol" do
@@ -177,6 +177,21 @@ describe FeedParser do
           :url => "http://techcrunch.com",
           # items: [] # <- fill in if you want to
         },
+        'jyu.rdf.rss.xml' => {
+          :title => 'IT-palvelut tiedottaa',
+          :url => 'https://www.jyu.fi/itp',
+          :items => [
+            {
+              :guid => '',
+              :link => 'https://www.jyu.fi/itp/ajankohtaista/tunnustenvanheneminen',
+              :title => 'Opiskelijatunnuksia vanhenee',
+              :categories => ['thk_ajankohtaista'],
+              :author => 'Sirpa Turjanmaki',
+              :description => '',
+              :content => '<p>Kukkuluuruu.</p>'
+            }
+          ]
+        }
       }.each do |rss_fixture, test_cases|
         it "should parse #{rss_fixture}" do
           feed = FeedParser::Feed.new(feed_xml(rss_fixture))

@@ -70,4 +70,13 @@ class FeedParser
       @categories = item.xpath(Dsl[@type][:item_categories]).map{|cat| cat.attribute("term").text}
     end
   end
+
+  class RdfItem < FeedItem
+    def initialize(item)
+      @type = :rdf
+      super
+      @link = item.xpath(Dsl[@type][:item_link]).text.strip
+      @categories = item.xpath(Dsl[@type][:item_categories]).map{|cat| cat.text}
+    end
+  end
 end

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:syn="http://purl.org/rss/1.0/modules/syndication/" xmlns="http://purl.org/rss/1.0/">
+
+
+
+
+    
+
+
+
+<channel rdf:about="https://www.jyu.fi/itp/ajankohtaista/ajankohtaista_etu/RSS">
+  <title>IT-palvelut tiedottaa</title>
+  <link>https://www.jyu.fi/itp</link>
+
+  <description>
+    
+      Jyväskylän yliopiston IT-palveluiden ajankohtaiset asiat, huoltotiedotteet, häiriötiedotteet ja ohjelmistopäivitykset. 
+    
+  </description>
+
+  
+
+  
+            <syn:updatePeriod>daily</syn:updatePeriod>
+            <syn:updateFrequency>1</syn:updateFrequency>
+            <syn:updateBase>2007-05-16T02:26:27Z</syn:updateBase>
+        
+
+  <image rdf:resource="https://www.jyu.fi/itp/logo.png"/>
+
+  <items>
+    <rdf:Seq>
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/tunnustenvanheneminen"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/plagi"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/it-palvelujen-www-sivujen-uudistus-1.9"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/ajankohtaista-uutispohja"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/internet-explorerin-toiminnallisuus-edelleen-rajattu-xp-koneilla-13.7.2012"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/kuvaus-kesalla-2012"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/it-palvelut-kehittaa-projektit-2012"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/palaute-2012-kiitos"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/hyody-uusista-verkkokokousvalineista"/>
+      
+      
+        <rdf:li rdf:resource="https://www.jyu.fi/itp/ajankohtaista/win7"/>
+      
+    </rdf:Seq>
+  </items>
+
+</channel>
+
+
+  <item rdf:about="https://www.jyu.fi/itp/ajankohtaista/tunnustenvanheneminen">
+    <title>Opiskelijatunnuksia vanhenee</title>
+    <link>https://www.jyu.fi/itp/ajankohtaista/tunnustenvanheneminen</link>
+    <description></description>
+    <content:encoded xmlns:content="http://purl.org/rss/1.0/modules/content/"><![CDATA[<p>Kukkuluuruu.</p>]]></content:encoded>
+    <dc:publisher>No publisher</dc:publisher>
+    <dc:creator>Sirpa Turjanmaki</dc:creator>
+    <dc:rights></dc:rights>
+    
+      <dc:subject>thk_ajankohtaista</dc:subject>
+    
+    <dc:date>2012-09-27T07:25:00Z</dc:date>
+    <dc:type>Uutinen</dc:type>
+  </item>
+
+</rdf:RDF>

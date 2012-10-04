@@ -5,8 +5,8 @@ class FeedParser
     def initialize(feed_xml)
       @feed = Nokogiri::XML(feed_xml)
       @feed.remove_namespaces!
-      @type = ((@feed.xpath('/rss')[0] && :rss) || (@feed.xpath('/feed')[0] && :atom))
-      raise FeedParser::UnknownFeedType.new("Feed is not an RSS feed or an ATOM feed") unless @type
+      @type = ((@feed.xpath('/rss')[0] && :rss) || (@feed.xpath('/feed')[0] && :atom)) || (@feed.xpath('/RDF')[0] && :rdf)
+      raise FeedParser::UnknownFeedType.new("Unknown feed type") unless @type
       self
     end
 
@@ -16,7 +16,7 @@ class FeedParser
 
     def url
       _url = case @type
-        when :rss
+        when :rss, :rdf
           @feed.xpath(Dsl[@type][:url])
         when :atom
           @feed.xpath(Dsl[@type][:url]).first && @feed.xpath(Dsl[@type][:url]).attribute("href") ||
@@ -28,7 +28,11 @@ class FeedParser
     end
 
     def items
-      klass = (@type == :rss && RssItem || AtomItem)
+      klass = case @type
+        when :rss then RssItem
+        when :atom then AtomItem
+        when :rdf then RdfItem
+      end
 
       @items ||= @feed.xpath(Dsl[@type][:item]).map do |item|
         klass.new(item)
